@@ -2,3 +2,96 @@
 
 \section{JROS Profile II}
 
+    The issues with the JROS profile continued this week, starting with not being able to run the ROS master. When initialized, JupyterLab displayed the warning below: 
+
+
+    \begin{lstlisting}[language=warning]
+Master: WARNING
+
+WARNING: cannot load logging configuration file, logging is disabled
+Resource not found: roslaunch
+The traceback for the exception was written to the log file     
+    \end{lstlisting}
+
+    \noindent It was determined that the main cause of this issue was because the \texttt{conda} base environment was not being automatically activated when the JupyterHub profile is spawned. Because of this, none of the ROS environment variables required for a smooth operation were set.
+
+    \subsection{Conda Base Environment}
+
+    The simplest solution was to manually activate the base environment from a terminal with \texttt{conda activate}, however, that resulted in
+
+    \begin{lstlisting}[language=error]
+CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+    \end{lstlisting}
+
+% Currently supported shells are:
+% - bash
+% - fish
+% - tcsh
+% - xonsh
+% - zsh
+% - powershell
+
+% See 'conda init --help' for more information and options.
+
+% IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+
+    \noindent This problem has been documented in \href{https://github.com/conda/conda/issues/7980}{conda issue \#7980}. With the suggested workaround of using \texttt{source activate} instead, the base environment can be successfully activated. However, this environment is only activated in the current terminal but the environment variables are required globally. Additionally, ROS master could not be initialized, not even from the terminal. Trying to run \texttt{roscore} resulted in the following error:
+
+    \begin{lstlisting}[language=error]
+RLException: Unable to contact my own server at [http://jupyter-4295:34937/].
+This usually means that the network is not configured properly.        
+    \end{lstlisting}
+
+    \noindent Thankfully, the solution for this error was to simply set the ROS IP.\@  Afterwards, the ROS master could be ran from a terminal but not yet from the ROS extension.
+
+    \begin{lstlisting}[language=console]
+$ export ROS_IP=127.0.0.1
+    \end{lstlisting}
+
+    \noindent Later, it was discovered that an environment variable could be set from the \texttt{Dockerfile} and persist when running the container by using the \texttt{ENV} command.
+
+    \begin{lstlisting}[language=docker]
+ENV ROS_IP=127.0.0.1
+    \end{lstlisting}
+
+
+    \subsection{Local Docker Containers}
+
+    The next attempt was to manually activate the base environment by including the instructions in the \texttt{Dockerfile}. To speed up the testing, the docker images were saved locally. Since the base image for \texttt{rwth-courses} is stored in a private repository, it is not accessible without the proper credentials. As a workaround, Ubuntu 20.04 was used as the base image. The only problem was that the \texttt{ubuntu} image does not come with \texttt{conda} preinstalled, thus, it had to be manually installed in the \texttt{Dockerfile}. 
+    
+    Once all the requirements and extensions for JupyterLab were installed, activating the base environment was a matter of simply sourcing the \texttt{conda} setup file. Although all the ROS variables were set during this build process, these same environment variables were not available when running the container. 
+
+    \subsection{Jovyan}
+    
+    Furthermore, it was observed that the default user for the JupyterHub profile should be set to \texttt{jovyan} and not \texttt{root}. Although adding a new user to the \texttt{Dockerfile} is simple, \texttt{jovyan} has special permissions which would be more involved to replicate manually. This led to using the \href{https://jupyter-docker-stacks.readthedocs.io/en/latest/index.html}{Jupyter Docker Stacks} as base images.
+
+
+    \subsection{Jupyter Docker Stack}
+
+    With a Jupyter base image, it was no longer necessary to manually install \texttt{conda} nor to add a new user. The local containers used for testing used the \texttt{minimal-notebook} as base image.
+
+
+    \begin{lstlisting}[language=docker]
+FROM jupyter/minimal-notebook:latest
+    \end{lstlisting}
+
+    A few more issues arose when attempting to install the required packages with \texttt{mamba} because there were conflicts with the pinned version of Python; the packages require Python 3.9 but the \texttt{base-notebook} starts off with Python 3.10. The simplest solution was to remove the pinned file in \texttt{/opt/conda/conda-meta/}.
+    Nonetheless, the errors with ROS continued even in the newly created containers. Even explicitly setting the ROS environment variable did not solve the problem of running the ROS master from the JupyterLab extension, because the configuration was still incorrect.
+
+\section{ROSCon 2022 Proposal}
+
+    Since the submission deadline for proposals is quickly approaching, this week we also dedicated some time to writing a proposal for ROSCon 2022 which will be held in Kyoto, Japan. We believe that sharing our ideas about how ROS can be made more accessible to students could be of great interest to any robotics instructors attending the conference.
+
+\section{Future Work}
+
+    In order to fix the JROS issues with ROS, there are a few more things to try:
+    \begin{itemize}
+        \item \texttt{Kubespawner} $\rightarrow$ figure out how the spawning process works and if the spawning script can be modified to activate the environment before launching JupyterLab.
+        \item \texttt{nb\_conda\_kernels} $\rightarrow$ this is a JupyterLab extension which permits access to kernels located in other \texttt{conda} environments.
+        \item \texttt{micromamba-docker} $\rightarrow$ this repository on GitHub uses \texttt{ENTRYPOINT} scripts to activate the base environment when running the Docker container.
+    \end{itemize}
+
+    Moreover, the development of \texttt{jupyros} continues and this involves finalizing the JupyterLab extension for Gazebo.
