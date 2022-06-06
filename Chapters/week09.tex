@@ -2,7 +2,7 @@
 
 \section{JROS Profile II}
 
-    The issues with the JROS profile continued this week, starting with not being able to run the ROS master. When initialized, JupyterLab displayed the warning below: 
+    The issues with the JROS profile continued this week, beginning with not being able to run the ROS master. When initialized, JupyterLab displayed the warning below: 
 
 
     \begin{lstlisting}[language=warning]
@@ -79,7 +79,7 @@ FROM jupyter/minimal-notebook:latest
     \end{lstlisting}
 
     A few more issues arose when attempting to install the required packages with \texttt{mamba} because there were conflicts with the pinned version of Python; the packages require Python 3.9 but the \texttt{base-notebook} starts off with Python 3.10. The simplest solution was to remove the pinned file in \texttt{/opt/conda/conda-meta/}.
-    Nonetheless, the errors with ROS continued even in the newly created containers. Even explicitly setting the ROS environment variable did not solve the problem of running the ROS master from the JupyterLab extension, because the configuration was still incorrect.
+    Nonetheless, the errors with ROS continued even in the newly created containers. Even explicitly setting the ROS environment variable did not solve the problem of running the ROS master from the JupyterLab extension because the configuration was still incorrect.
 
 \section{ROSCon 2022 Proposal}
 
