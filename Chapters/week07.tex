@@ -8,7 +8,7 @@
     
     By far, the greatest challenge in developing JupyterLab extensions has been to set up the development environment with all the tools necessary for testing the extension. Learning from the mistakes from last week, I attempted to set up an environment where only the Gazebo extension was in development mode. The only required dependencies for this environment were the core ROS packages, \texttt{jupyros}, \texttt{jupyterlab-ros}, and Gazebo. Initially, the environment was created successfully. However, it was quickly discovered that Gazebo could not be launched. Every time Gazebo was initialized, it would immediately crash with a segmentation fault.
     
-    \begin{lstlisting}[language=Console]
+    \begin{lstlisting}[language=error]
 process[gazebo-2]: started with pid [87991]          
 process[gazebo_gui-3]: started with pid [87995] 
 Segmentation fault (core dumped)
@@ -25,8 +25,8 @@ Segmentation fault (core dumped)
     
     After all was \textit{set} and done, \texttt{gzbridge} could be initialized but the Gazebo website would not display correctly. The error below was encountered, meaning that the \texttt{js} files which are vital for the Gazebo website were being blocked. This issue necessitated further investigation.
     
-    
-    \begin{lstlisting}[language=Warning]
+    \pagebreak
+    \begin{lstlisting}[language=warning]
 Cross-Origin Read Blocking (CORB) blocked cross-origin response
 http://localhost:8888/login?next=%2Ffiles%2Fgz3d.gui.js with MIME 
 type text/html. See https://www.chromestatus.com/feature/5629709824032768 

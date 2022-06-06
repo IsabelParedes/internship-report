@@ -316,26 +316,44 @@ keywordstyle=[3]{\bf\ttfamily\color{black}},
 }
 
 \definecolor{bashRed}{HTML}{FD6062}
+\definecolor{conDark}{HTML}{121212}
 \lstdefinelanguage{Console}{
-    basicstyle=\small\ttfamily\color{bashRed},
-    backgroundcolor=\color{black},
-    keywords={Segmentation, fault, core, dumped},
-    keywordstyle=\bf\ttfamily\color{bashRed},
+    basicstyle=\small\ttfamily\color{white},
+    backgroundcolor=\color{conDark},
+    keywords={},
+    keywordstyle=\bf\ttfamily\color{white},
     morekeywords=[3]{},
-    keywordstyle=[3]{\bf\ttfamily\color{black}}
+    keywordstyle=[3]{\bf\ttfamily\color{white}}
     frame=tblr, %tb
     frameround=ffff, % f for square corner
-    rulecolor=\color{black},
+    rulecolor=\color{conDark},
     numberstyle=\color{black},
     keepspaces=false,
     % lineskip=1.5mm
 }
 
 \definecolor{lightYellow}{HTML}{FFFBE5}
-\definecolor{warnRed}{HTML}{994500}
+\definecolor{warnLight}{HTML}{FEEFB3}
+\definecolor{warnDark}{HTML}{9F6000} %994500
 \lstdefinelanguage{Warning}{
     keywords={type, login, for},
-    basicstyle=\small\ttfamily\color{warnRed},
-    backgroundcolor=\color{lightYellow},
-    keywordstyle=\color{warnRed}
+    basicstyle=\small\ttfamily\color{warnDark},
+    backgroundcolor=\color{warnLight},
+    keywordstyle=\color{warnDark},
+    frame=tblr,
+    frameround=ffff, %true or false
+    rulecolor=\color{warnDark},
+    columns=flexible
+}
+
+\definecolor{errLight}{HTML}{FFBABA}
+\definecolor{errDark}{HTML}{D8000C} %dc3c1a
+\lstdefinelanguage{Error}{
+    basicstyle=\small\ttfamily\color{errDark},
+    backgroundcolor=\color{errLight},
+    keywordstyle=\color{errDark},
+    frame=tblr,
+    frameround=ffff,
+    rulecolor=\color{errDark},
+    columns=flexible
 }
