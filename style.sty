@@ -264,7 +264,7 @@
 
 \lstset{
     frame=tblr, %tb
-    frameround=tttt, % f for square corner
+    frameround=ffff, % True (t) or False (f) for square
     rulecolor=\color{gray},
     xleftmargin=1.5mm,
     xrightmargin=1.5mm,
@@ -356,4 +356,11 @@ keywordstyle=[3]{\bf\ttfamily\color{black}},
     frameround=ffff,
     rulecolor=\color{errDark},
     columns=flexible
+}
+
+\lstdefinelanguage{Docker}{
+    keywords={RUN, ADD, ENV, ENTRYPOINT, CMD, USER, ARG, FROM},
+    keywordstyle=\color{blue},
+    emph={=},
+    emphstyle=\color{black}
 }
