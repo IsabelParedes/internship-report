@@ -224,19 +224,22 @@
 %     \vspace{1.5cm}
 % }
 
+% \titlecontents{chapter}[2cm]
+%     {\addvspace{14pt}\Large\bfseries}
+%     {\bf\color{dark}\contentslabel[\Large\thecontentslabel]{1.25cm}}{}
+%     {}
 \titlecontents{chapter}[2cm]
-    {\addvspace{14pt}\Large\bfseries}
-    {\bf\color{links}\contentslabel[\Large\thecontentslabel]{1.25cm}}{}
-    {}
+    {\addvspace{14pt}\hspace{-1.25cm}\Large\bfseries}
+    {}{}{}
 
 \titlecontents{section}[2cm]
     {\addvspace{6pt}\bfseries}
-    {\bf\color{links}\contentslabel[\thecontentslabel]{1.25cm}}{}
+    {\bf\color{dark}\contentslabel[\thecontentslabel]{1.25cm}}{}
     {\color{dark}\small\;\titlerule*[.4pc]{.}\;\thecontentspage}
 
 \titlecontents{subsection}[2cm]
     {}
-    {\color{links}\contentslabel[\thecontentslabel]{1.25cm}}{}
+    {\color{dark}\contentslabel[\thecontentslabel]{1.25cm}}{}
     {\color{dark}\small\;\titlerule*[.4pc]{.}\;\thecontentspage}
 
 
