@@ -257,7 +257,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CODE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{listings}
-\definecolor{lightgray}{HTML}{F7F7F7}
+\definecolor{lightgray}{HTML}{F5F5F5}
 \definecolor{gray}{HTML}{D7D7D7}
 \definecolor{darkgray}{HTML}{A7A7A7}
 \definecolor{pyBlue}{HTML}{0000FF}
@@ -267,9 +267,12 @@
 \definecolor{pyPurple}{HTML}{A920FF}
 
 \lstset{
-    frame=tblr, %tb
+    % frame=tblr, %tb
+    frame=shadowbox,
+    framesep=2pt,
     frameround=ffff, % True (t) or False (f) for square
-    rulecolor=\color{gray},
+    rulesepcolor=\color{gray},
+    rulecolor=\color{lightgray},
     xleftmargin=1.5mm,
     xrightmargin=1.5mm,
     backgroundcolor=\color{lightgray},
@@ -328,7 +331,7 @@ keywordstyle=[3]{\bf\ttfamily\color{black}},
     keywordstyle=\bf\ttfamily\color{white},
     morekeywords=[3]{},
     keywordstyle=[3]{\bf\ttfamily\color{white}}
-    frame=tblr, %tb
+    % frame=tblr, %tb
     frameround=ffff, % f for square corner
     rulecolor=\color{conDark},
     numberstyle=\color{black},
@@ -336,29 +339,37 @@ keywordstyle=[3]{\bf\ttfamily\color{black}},
     % lineskip=1.5mm
 }
 
-\definecolor{lightYellow}{HTML}{FFFBE5}
-\definecolor{warnLight}{HTML}{FEEFB3}
-\definecolor{warnDark}{HTML}{9F6000} %994500
+
+\definecolor{warnLight}{HTML}{FFFDD7}
+\definecolor{warnDark}{HTML}{897002} 
+\definecolor{warnMidd}{HTML}{FFF887}
 \lstdefinelanguage{Warning}{
     keywords={type, login, for},
     basicstyle=\small\ttfamily\color{warnDark},
     backgroundcolor=\color{warnLight},
     keywordstyle=\color{warnDark},
-    frame=tblr,
     frameround=ffff, %true or false
-    rulecolor=\color{warnDark},
-    columns=flexible
+    framesep=2pt,
+    % framerule=15px,
+    rulecolor=\color{warnLight},
+    columns=flexible,
+    frame=shadowbox, % or tblr
+    rulesepcolor=\color{warnMidd},
+    % fillcolor=\color{red},
 }
 
-\definecolor{errLight}{HTML}{FFBABA}
-\definecolor{errDark}{HTML}{D8000C} %dc3c1a
+\definecolor{errLight}{HTML}{FFE9D8}
+\definecolor{errDark}{HTML}{D60707} 
+\definecolor{errMidd}{HTML}{FEA788}
 \lstdefinelanguage{Error}{
     basicstyle=\small\ttfamily\color{errDark},
     backgroundcolor=\color{errLight},
     keywordstyle=\color{errDark},
-    frame=tblr,
+    frame=shadowbox,
     frameround=ffff,
-    rulecolor=\color{errDark},
+    framesep=2pt,
+    rulecolor=\color{errLight},
+    rulesepcolor=\color{errMidd},
     columns=flexible
 }
 
