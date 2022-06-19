@@ -373,9 +373,21 @@ keywordstyle=[3]{\bf\ttfamily\color{black}},
     columns=flexible
 }
 
+\definecolor{dockerGray}{HTML}{717171}
 \lstdefinelanguage{Docker}{
-    keywords={RUN, ADD, ENV, ENTRYPOINT, CMD, USER, ARG, FROM},
-    keywordstyle=\color{blue},
-    emph={=},
-    emphstyle=\color{black}
+    % morekeywords=[3]{RUN, ADD, ENV, ENTRYPOINT, CMD, USER, ARG, FROM},
+    % keywordstyle=[3]\color{blue},
+    emph={RUN, ADD, ENV, ENTRYPOINT, CMD, USER, ARG, FROM},
+    emphstyle=\color{blue},
+    emph=[2]{=},
+    emphstyle=[2]\color{black},
+    % comment={\#},
+    % string=[l]{"},
+    language=Python,
+    % morecomment=[s]{/*}{*/},
+    commentstyle=\color{dockerGray},
+    sensitive=false,
+    morestring=[b]',
+    morestring=[b]",
+    stringstyle=\color{black}
 }
