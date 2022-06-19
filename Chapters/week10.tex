@@ -23,8 +23,14 @@ conda activate "${ENV_NAME}" 2>/dev/null \
     \noindent Nevertheless, the ROS master issue persisted. After further investigation it was determined that the subprocess which runs the ROS master does not maintain the communication as expected, it immediately shuts down. The exact cause is yet to be identified.
 
     \begin{lstlisting}
-cls.proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,  universal_newlines=True)
+# master.py
+cls.proc = subprocess.Popen(command, 
+                            stdout=subprocess.PIPE, 
+                            stderr=subprocess.PIPE,
+                            universal_newlines=True)
+                            
 ...
+
 out, err = cls.proc.communicate()    # Failure
     \end{lstlisting}
 
